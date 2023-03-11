@@ -1,0 +1,64 @@
+{% extends 'sweetapp/layouts/main.html' %}
+
+{% block content %}
+
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3 col-12 mb-2">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">Dashboard</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'cart' %}active{% endif %}" href="{% url 'cart' %}">Cart</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'myorders' %}active{% endif %}" href="{% url 'myorders' %}">Orders</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'wishlist' %}active{% endif %}" href="{% url 'wishlist' %}">Wishlist</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'changepassword' %}active{% endif %}" href="{% url 'changepassword' %}">Change Password</a>
+                    <a class="list-group-item list-group-item-action text-danger {% if request.resolver_match.url_name == 'logout' %}active{% endif %}" href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
+            <div class="col-md-9 col-12 mb-2">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h3 class="mb-0">My Orders</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borders text-center">
+                            <thead>
+                                <tr>
+                                    <th>Order Date</th>
+                                    <th>Tracking Number</th>
+                                    <th>Total Price</th>
+                                    {% comment %} <th>Status</th> {% endcomment %}
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in orders %}
+                                <tr>
+                                    <td>{{ item.created_at }}</td>
+                                    <td>{{ item.tracking_no }}</td>
+                                    <td>{{ item.total_price }}</td>
+                                    {% comment %} <td>{{item.status}}</td> {% endcomment %}
+                                    {% if item.status %}
+                                        <td><small>Completed</small></td>
+                                    {% else %}
+                                        <td><small>Pending</small></td>
+                                    {% endif %}
+                                    <td>
+                                        <a href="{% url 'orderview' item.tracking_no %}" class="btn btn-primary">View</a>
+                                    </td>
+                                    {% comment %} <td>
+                                        <a href="{% url 'bills' %}" class="btn btn-success">PDF</a>
+                                    </td> {% endcomment %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+{% endblock content %}

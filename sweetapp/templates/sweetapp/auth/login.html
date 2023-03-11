@@ -1,0 +1,90 @@
+{% extends 'sweetapp/layouts/main.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'https://use.fontawesome.com/releases/v5.6.1/css/all.css'%}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="{% static 'https://use.fontawesome.com/releases/v5.6.1/css/all.css'%}">
+
+{% block style %}
+<style>
+.span{
+    position:absolute;
+    right:15px;
+    transform:translate(0,-50%);
+    top:50%;
+}
+.fa{
+    font-size:20px;
+    color:#7a797e;
+}
+.login{
+    width:450px;
+    height:300px;
+}
+.form{
+    text-align:center;
+}
+.dsd{
+    background: linear-gradient(50deg,#27ebd1,#2790e6 );
+  }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+<body class="dsd">
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6 login">
+            <div class="card mt-3 shadow">
+                <div class="card-body center">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="text-center">
+                            <h4>Login</h4>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="">Username :</label><br>
+                            <input type="text" class="form-control" name="username" placeholder="Enter UserName">
+                        </div>
+                                                    
+                        <div class="form-group">
+                            <label for="">Password :</label><br>
+                            <input type="password" class="form-control" name="password" id="pswd" placeholder="Enter Password">
+                            <span onclick="myFunction()"><i class="fa fa-eye d-flex justify-content-end" style="margin-right: 10px;margin-top: -30px;" aria-hidden="true" id="eye"></i></span>
+                        </div>
+                        <div class="mt-3 float-end text-center">
+                            <a href="{% url 'password_reset' %}">Reset Password</a> 
+                        </div>
+                        <div class="col-md-5 col-lg-12 mt-4">
+                            <button type="submit" class="btn shadow btn-primary w-100">Login</button>
+                        </div>
+                        <div class="mt-1">
+                            <div class="float-start links">
+                                Don't have an account? <a href="{% url 'register' %}">Sign Up</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock content %}
+
+{% block scripts %}
+
+<script>
+    function myFunction(){
+        var x=document.getElementById("pswd");
+        if(x.type==="password"){
+            x.type="text";
+        }
+        else{
+            x.type="password";
+        }
+    }
+</script>
+
+{% endblock scripts %}

@@ -1,0 +1,129 @@
+{% extends 'sweetapp/layouts/main.html' %}
+
+{% block style %}
+<style>
+.span{
+    position:absolute;
+    right:15px;
+    transform:translate(0,-50%);
+    top:50%;
+}
+.fa{
+    font-size:20px;
+    color:#7a797e;
+}
+.register{
+    width:450px;
+    height:550px;
+}
+.scd{
+    background: linear-gradient(140deg,#b434eb,#34a5eb );
+}
+
+</style>
+{% endblock style %}
+
+{% block content %}
+<body class="scd">
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6 register">
+            <div>
+                <div class="card mt-3 shadow">
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="text-center">
+                                <h4>Register</h4>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label>First Name :</label>
+                                {{form.first_name}}
+                                {% if form.errors.first_name %}
+                                    <label class="text-danger">{{ form.errors.first_name }}</label>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="">Last Name :</label>
+                                {{form.last_name}}
+                                {% if form.errors.last_name %}
+                                    <label class="text-danger">{{ form.errors.last_name }}</label>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="">Username :</label>
+                                {{form.username}}
+                                {% if form.errors.username %}
+                                    <label class="text-danger">{{ form.errors.username }}</label>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="">Email :</label>
+                                {{form.email}}
+                                {% if form.errors.email %}
+                                    <label class="text-danger">{{ form.errors.email }}</label>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label>Password :</label>
+                                <input type="password" class="form-control" name="password1" id="pswd1" placeholder="Enter Password">
+                                <span onclick="myFun1()"><i class="fa fa-eye d-flex justify-content-end" style="margin-right: 10px; margin-top:-30px;" aria-hidden="true" id="eye1"></i></span>
+                                {% if form.errors.password1 %}
+                                    <label class="text-danger">{{ form.errors.password1 }}</label>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group">
+                                <label class="mt-3">Confirm Password :</label>
+                                <input type="password" class="form-control" name="password2" id="pswd2" placeholder="Confirm Password">
+                                {% comment %} <span onclick="myFun1()"></span> {% endcomment %}
+                                <span onclick="myFun2()"><i class="fa fa-eye d-flex justify-content-end" style="margin-right: 10px; margin-top:-30px;" aria-hidden="true" id="eye2"></i></span>
+
+                                {% if form.errors.password2 %}
+                                    <label class="text-danger">{{ form.errors.password2 }}</label>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-5 col-lg-12 mt-4">
+                                <button type="submit" class="btn shadow btn-primary w-100">Register</button>
+                            </div>
+                            <div class="mt-1">
+                                <div class="d-flex justify-content-center links">
+                                    <a href="{% url 'loginpage' %}">Sign In</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock content %}
+
+{% block scripts %}
+
+<script>
+    function myFun1(){
+        var x=document.getElementById("pswd1");
+        if(x.type==="password"){
+            x.type="text";
+        }
+        else{
+            x.type="password";
+        }
+    }
+    function myFun2(){
+        var x=document.getElementById("pswd2");
+        if(x.type==="password"){
+            x.type="text";
+        }
+        else{
+            x.type="password";
+        }
+    }
+    
+</script>
+
+{% endblock scripts %}

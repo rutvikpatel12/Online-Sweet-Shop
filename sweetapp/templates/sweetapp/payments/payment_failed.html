@@ -1,0 +1,19 @@
+{% extends 'sweetapp/layouts/main.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 mx-auto my-5 p-5 text-center" style="box-shadow:0px 0px 10px gray;">
+            <img src="{% static 'images/success.gif' %}" height="300" width="300">
+            <br>
+            <h1 class="alert alert-danger">Paymet Failed</h1>
+            <div class="my-3">
+                <a href="{% url 'collections' %}" class="btn btn-success">Continue Shopping</a>
+                <a href="{% url 'dashboard' %}" class="btn btn-primary">Go To Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

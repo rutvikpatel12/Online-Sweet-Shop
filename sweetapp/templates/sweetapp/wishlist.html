@@ -1,0 +1,59 @@
+{% extends 'sweetapp/layouts/main.html' %}
+
+{% block content %}
+
+
+<div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3 col-12 mb-2">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">Dashboard</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'cart' %}active{% endif %}" href="{% url 'cart' %}">Cart</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'myorders' %}active{% endif %}" href="{% url 'myorders' %}">Orders</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'wishlist' %}active{% endif %}" href="{% url 'wishlist' %}">Wishlist</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'changepassword' %}active{% endif %}" href="{% url 'changepassword' %}">Change Password</a>
+                    <a class="list-group-item list-group-item-action text-danger {% if request.resolver_match.url_name == 'logout' %}active{% endif %}" href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
+            <div class="col-md-9 col-12 mb-2">
+                <div class="card shadow">
+                    <div class="card-body wishdata">
+                        {% if wishlist %}
+                            {% for item in wishlist %}
+                                <div class="row product_data">
+                                    <div class="col-md-2 my-auto">
+                                        <img src="{{ item.product.product_image.url }}" height="70px" width="70px" alt="Image here">
+                                    </div>
+                                    <div class="col-md-3 my-auto">
+                                        <h6> {{ item.product.name }} </h6>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <h6> Rs {{ item.product.selling_price | stringformat:'d' }} </h6>
+                                    </div>
+                                    <div class="col-md-3 my-auto">
+                                        <input type="hidden" class="prod_id" value="{{ item.product_id }}">
+                                        {% csrf_token %}
+                                        <a href="{% url 'productview' item.product.category.slug item.product.slug %}" class="btn btn-primary">
+                                            <i class="fa fa-eye"></i> View Product
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <button class="btn btn-danger delete-wishlist-item"><i class="fa fa-trash"></i>Remove</button>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <h4>Your Wishlist is Empty</h4>
+                        {% endif %}
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

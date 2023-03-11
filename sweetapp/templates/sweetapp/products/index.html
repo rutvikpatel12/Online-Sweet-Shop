@@ -1,0 +1,38 @@
+{% extends 'sweetapp/layouts/main.html' %}
+
+{% block content %}
+
+<div class="py-3 bg-primary">
+    <div class="container">
+        <a class="text-white" href="{% url 'home' %}">Home /</a>
+        <a class="text-white" href="{% url 'collections' %}">Category /</a>
+        <a class="text-white" href="{% url 'collectionsview' category.slug %}">{{category.name}}</a>
+    </div>
+</div>
+<div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">{{category.name}}</h1>
+            <hr>
+            <div class="row">
+            {% for item in products %}
+                <div class="col-md-3">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <div class="category-image">
+                                <a href="{% url 'productview' item.category.slug item.slug %}">  <img src="{{item.product_image.url}}" alt="Product image" width="200px" height="230px"/> </a>
+                            </div>
+                            <h4 class="text-center"> {{item.name}} </h4>
+                            {% comment %} <span class="float-start">{{ item.original_price | stringformat:'d' }}</span> {% endcomment %}
+                            <span class="float-start">Rs. {{ item.selling_price | stringformat:'d' }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+</div>
+</div>
+{% endblock content %}

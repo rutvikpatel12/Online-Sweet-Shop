@@ -1,0 +1,68 @@
+{% extends 'sweetapp/layouts/main.html' %}
+{% load static %}
+{% block content %}
+    {% include 'sweetapp/inc/slider.html' %}
+
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <h1 class="text-center">Products</h1>
+                <hr>
+                <div class="row owl-carousel owl-theme">
+                    {% for item in trending_products %}
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body ml-2">
+                                <div class="category-image">
+                                    <a href="{% url 'productview' item.category.slug item.slug %}"> <img src="{{item.product_image.url}}" alt="Product image" width="200px" height="230px" /> </a>
+                                </div>
+                                <h4 class="text-center"> {{item.name}} </h4>
+                            </div>
+                        </div>
+                        {% comment %} <a href="#" class="previous round" style="width:50px;height:100px;">&#8249;</a> {% endcomment %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <div class="col-md-6 col-lg-6">
+                <img src="{% static '/images/about.jpg' %}" style="width:100%; height:400px;">
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <h1 class="fonts text-center">About Us</h1>
+                <h5 class="text-center">This is a place where you get a wide choice of delicious cookies, pastries, sweets, and goodness obaked goods for all occasions. We, Food Hub, situated at Gujarat, aim to serve the most creative and mouth-watering cakes, and baked goods to help celebrate your events in a special way! Pick a design you like, and then choose from delectable flavours. You can then sit back and relax & expect a wonderful cake to arrive at your desired location, on your chosen date and time.</h5>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:0,
+        dots:false,
+        nav:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1000:{
+                items:4
+            }
+        }
+    });
+</script>
+
+{% endblock scripts %}

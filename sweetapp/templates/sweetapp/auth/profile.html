@@ -1,0 +1,49 @@
+{% extends 'sweetapp/layouts/main.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3 col-12 mb-2">
+            <div class="list-group">
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">Dashboard</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'cart' %}active{% endif %}" href="{% url 'cart' %}">Cart</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'myorders' %}active{% endif %}" href="{% url 'myorders' %}">Orders</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'wishlist' %}active{% endif %}" href="{% url 'wishlist' %}">Wishlist</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
+                    <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'changepassword' %}active{% endif %}" href="{% url 'changepassword' %}">Change Password</a>
+                    <a class="list-group-item list-group-item-action text-danger {% if request.resolver_match.url_name == 'logout' %}active{% endif %}" href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+        <div class="col-md-9 col-12 md-2">
+            <div class="card">
+                <h4 class="card-header">Update Profile</h4>
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {% comment %} {{u_form.as_p}} {% endcomment %}
+                        <div class="mb-3">
+                            <label for="firstname" class="form-label">First Name</label>
+                            <input type="text" class="form-control" name="fname" value="{{user.first_name}}" id="firstname" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastname" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" name="lname" value="{{user.last_name}}" id="lastname" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">User Name</label>
+                            <input type="text" class="form-control" name="uname" value="{{request.user}}" id="username" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" value="{{user.email}}" id="email" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
